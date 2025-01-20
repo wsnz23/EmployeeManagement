@@ -19,10 +19,10 @@ namespace EmployeeManagement.Models.Repositories.Implementations
             };
         }
 
-        public bool Add(Employee employee)
+        public Employee Add(Employee employee)
         {
             _employees.Add(employee);
-            return true;
+            return employee;
         }
 
         public IList<Employee> GetAll()

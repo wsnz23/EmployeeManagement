@@ -6,7 +6,7 @@ namespace EmployeeManagement.Models.Repositories.Interfaces
     {
         Employee GetById(int id);
         IList<Employee> GetAll();
-        bool Add(Employee employee);
+        Employee Add(Employee employee);
         bool Edit(Employee employee);
         bool Delete(int id);
     }

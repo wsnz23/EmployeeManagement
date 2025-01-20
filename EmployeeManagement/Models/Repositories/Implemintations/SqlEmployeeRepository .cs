@@ -1,69 +1,62 @@
 ﻿using EmployeeManagement.Models.Domain;
 using EmployeeManagement.Models.Repositories.Interfaces;
 using CustomerManagement.EmployeeManagement.Models.Domain;
+using EmployeeManagement.Data;
 
 namespace EmployeeManagement.Models.Repositories.Implemintations
 {
-    public class SqlmployeeRepository : IEmployeeRepository
+    public class SqlEmployeeRepository : IEmployeeRepository
     {
-        private List<Employee> _employees;
+        private readonly AppDBContext _dbContext; //to use instance from this class
 
-        public SqlmployeeRepository()
+        public SqlEmployeeRepository(AppDBContext dbContext)
         {
-            _employees = new List<Employee>()
-                {
-                    new Employee() { Id = 1, Name = "d", Department = "HR", Email = "mary@pragimtech.com" },
-                    new Employee() { Id = 2, Name = "a", Department = "IT", Email = "john@pragimtech.com" },
-                    new Employee() { Id = 3, Name = "w", Department = "IT", Email = "sam@pragimtech.com" },
-                    new Employee() { Id = 4, Name = "b", Department = "IT", Email = "Ali@pragimtech.com" },
-                };
+            _dbContext = dbContext;
 
-        }
-
-        public bool Add(Employee employee)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool AddCustomer(Customer customer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteCustomer(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Edit(Employee employee)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool EditCustomer(Customer customer)
-        {
-            throw new NotImplementedException();
         }
 
         public IList<Employee> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbContext.Employees.ToList();
         }
 
-        public IList<Customer> GetAllCustomers()
+        public Employee GetById(int id)
         {
-            throw new NotImplementedException();
+           var employee= _dbContext.Employees.Find(id);
+            return employee;
+        }
+        public Employee Add(Employee employee)
+        {
+            _dbContext.Employees.Add(employee);
+            _dbContext.SaveChanges();
+            return employee;
         }
 
-        public Employee GetById(int id)         
+        public bool Delete(int id)
         {
-            var emp = _employees.Find(emp => emp.Id == id);
-            return emp;
+            var emp = _dbContext.Employees.Find(id);
+            if (emp != null) {
+                _dbContext.Employees.Remove(emp);
+                _dbContext.SaveChanges();
+            }
+            return true;
         }
+
+
+
+        public bool Edit(Employee employee)
+        {
+            var emp = _dbContext.Employees.Attach(employee);
+            emp.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _dbContext.SaveChanges();
+            return true;
+        }
+
+      /*  public Employee GetByGender(string gender)
+        {
+          throw new NotImplementedException();
+        }
+
+        */
     }
 }
