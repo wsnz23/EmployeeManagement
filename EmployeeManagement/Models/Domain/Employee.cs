@@ -5,9 +5,10 @@ namespace EmployeeManagement.Models.Domain
     public class Employee
     {
         [Required]
+        //[Key]
         public int Id { get; set; }
         [Required]
-        [MaxLength(5)]
+        [MaxLength(30)]
         public string Name { get; set; }
         [EmailAddress]
         //[RegularExpression] 
@@ -15,5 +16,7 @@ namespace EmployeeManagement.Models.Domain
 
         [Display(Name="Dept")]
         public string Department { get; set; }
+        public int Salary { get; set; }
+        public string? Address { get; set; }
     }
 }

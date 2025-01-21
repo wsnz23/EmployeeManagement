@@ -13,6 +13,7 @@ builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 builder.Services.AddScoped<IEmployeeRepository, SqlEmployeeRepository>();
 builder.Services.AddSingleton<ICustomerRepository, MockCustomerRepository>();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContextPool<AppDBContext>(
     options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EmployeeManagementDB;Integrated Security=True;Connect Timeout=30;Trust Server Certificate=False"));
 
