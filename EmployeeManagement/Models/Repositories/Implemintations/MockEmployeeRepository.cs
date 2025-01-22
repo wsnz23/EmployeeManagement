@@ -12,10 +12,10 @@ namespace EmployeeManagement.Models.Repositories.Implementations
         {
             _employees = new List<Employee>()
             {
-                new Employee() { Id = 1, Name = "Mary", Department = "HR", Email = "mary@pragimtech.com" },
-                new Employee() { Id = 2, Name = "John", Department = "IT", Email = "john@pragimtech.com" },
-                new Employee() { Id = 3, Name = "Sam", Department = "IT", Email = "sam@pragimtech.com" },
-                new Employee() { Id = 4, Name = "Ali", Department = "IT", Email = "Ali@pragimtech.com" },
+                new Employee() { Id = 1, Name = "Mary", Email = "mary@pragimtech.com" },
+                new Employee() { Id = 2, Name = "John", Email = "john@pragimtech.com" },
+                new Employee() { Id = 3, Name = "Sam", Email = "sam@pragimtech.com" },
+                new Employee() { Id = 4, Name = "Ali", Email = "Ali@pragimtech.com" },
             };
         }
 
@@ -40,7 +40,7 @@ namespace EmployeeManagement.Models.Repositories.Implementations
             var emp = _employees.Find(emp => emp.Id == employee.Id);
                 emp.Name = employee.Name;
                 emp.Email = employee.Email;
-                emp.Department = employee.Department;
+                //emp.Department = employee.Department;
                 return true;
            
         }

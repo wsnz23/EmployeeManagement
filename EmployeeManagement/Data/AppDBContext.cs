@@ -1,4 +1,5 @@
-﻿using EmployeeManagement.Models.Domain;
+﻿using EmployeeManagement.Extensions;
+using EmployeeManagement.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Data
@@ -13,15 +14,8 @@ namespace EmployeeManagement.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Employee>().HasData(
-                new Employee {
-                    Id = 2,
-                    Name = "Hanaa", 
-                    Email = "Hanaa@gmail.com",
-                    Department = "HR",
-                    Address = "Amman",
-                    Salary = 600 }
-                );
+            modelBuilder.SeedDepartment();
+            modelBuilder.SeedEmployee();
         }
     }
 }
