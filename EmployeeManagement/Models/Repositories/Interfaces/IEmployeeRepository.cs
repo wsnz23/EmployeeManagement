@@ -1,12 +1,13 @@
 ﻿using EmployeeManagement.Models.Domain;
+using EmployeeManagement.Models.DTOs;
 
 namespace EmployeeManagement.Models.Repositories.Interfaces
 {
     public interface IEmployeeRepository
     {
-        Employee GetById(int id);
+        EmployeeDTO GetById(int id);
         IList<Employee> GetAll();
-        Employee Add(Employee employee);
+        Employee Add(EmployeeDTO employee);
         bool Edit(Employee employee);
         bool Delete(int id);
     }

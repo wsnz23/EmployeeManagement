@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models.Domain;
+using EmployeeManagement.Models.DTOs;
 using EmployeeManagement.Models.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +36,7 @@ namespace EmployeeManagement.Controllers
 
         // Add a New Employee
         [HttpPost("AddEmployee")]
-        public IActionResult Add(Employee employee)
+        public IActionResult Add([FromBody]EmployeeDTO employee)
         {
             var result = _employeeRepository.Add(employee);
             return Ok(result);

@@ -5,6 +5,7 @@ using EmployeeManagement.Models.Repositories.Implementations;
 using EmployeeManagement.Models.Repositories.Implemintations;
 using EmployeeManagement.Models.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 builder.Services.AddScoped<IEmployeeRepository, SqlEmployeeRepository>();
 builder.Services.AddSingleton<ICustomerRepository, MockCustomerRepository>();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddDbContextPool<AppDBContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeeDB")));

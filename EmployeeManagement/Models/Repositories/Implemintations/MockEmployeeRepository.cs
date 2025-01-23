@@ -1,10 +1,11 @@
 ﻿using EmployeeManagement.Models.Domain;
+using EmployeeManagement.Models.DTOs;
 using EmployeeManagement.Models.Repositories.Interfaces;
 
 
 namespace EmployeeManagement.Models.Repositories.Implementations
 {
-    public class MockEmployeeRepository : IEmployeeRepository
+    public class MockEmployeeRepository //: IEmployeeRepository
     {
         private List<Employee> _employees;
 
@@ -51,5 +52,10 @@ namespace EmployeeManagement.Models.Repositories.Implementations
                 _employees.Remove(emp);
                 return true;
         }
+
+        //EmployeeDTO IEmployeeRepository.GetById(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

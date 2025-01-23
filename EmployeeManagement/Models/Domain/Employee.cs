@@ -20,7 +20,7 @@ namespace EmployeeManagement.Models.Domain
         public int Salary { get; set; }
         public string? Address { get; set; }
         public int DeptId { get; set; }
-
-        public string DeptName { get; set; }
+        [ForeignKey(nameof(DeptId))]
+        public Department Dept { get; set; }
     }
 }
