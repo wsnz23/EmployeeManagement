@@ -7,8 +7,8 @@ namespace EmployeeManagement.Mapping
     public class EmployeeMap: Profile
     {
         public EmployeeMap() {
-            CreateMap<Employee,EmployeeDTO>().ReverseMap().ForMember(dest => dest.Dept,
-                s => s.MapFrom(x => x.DeptName));
+            CreateMap<EmployeeDTO , Employee>().ReverseMap().ForMember(dest => dest.DeptName,
+                s => s.MapFrom(x => x.Dept.DepName));
         }
     }
 }

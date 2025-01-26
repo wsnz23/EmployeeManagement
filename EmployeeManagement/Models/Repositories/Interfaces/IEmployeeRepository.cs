@@ -6,7 +6,7 @@ namespace EmployeeManagement.Models.Repositories.Interfaces
     public interface IEmployeeRepository
     {
         EmployeeDTO GetById(int id);
-        IList<Employee> GetAll();
+        IList<EmployeeDTO> GetAll();
         Employee Add(EmployeeDTO employee);
         bool Edit(Employee employee);
         bool Delete(int id);

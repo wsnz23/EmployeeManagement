@@ -17,6 +17,11 @@ namespace EmployeeManagement.Data
             modelBuilder.SeedDepartment();
             modelBuilder.SeedEmployee();
         }
+
+        internal void SaveChangesAysnc()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
