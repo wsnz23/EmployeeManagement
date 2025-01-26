@@ -5,6 +5,7 @@ using EmployeeManagement.Models.IRepository;
 using EmployeeManagement.Models.Repositories.Implementations;
 using EmployeeManagement.Models.Repositories.Implemintations;
 using EmployeeManagement.Models.Repositories.Interfaces;
+using EmployeeManagement.Models.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -14,7 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 builder.Services.AddScoped<IEmployeeRepository, SqlEmployeeRepository>();
 builder.Services.AddSingleton<ICustomerRepository, MockCustomerRepository>();
-builder.Services.AddTransient<IUnitOfWork, IUnitOfWork>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
