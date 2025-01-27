@@ -28,7 +28,7 @@ namespace EmployeeManagement.Models.Repository
 
         public async Task Save()
         {
-           _dbContext?.SaveChangesAysnc();
+          await _dbContext.SaveChangesAsync();
         }
     }
 }

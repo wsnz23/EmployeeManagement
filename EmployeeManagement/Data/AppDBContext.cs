@@ -18,11 +18,7 @@ namespace EmployeeManagement.Data
             modelBuilder.SeedEmployee();
         }
 
-        internal void SaveChangesAysnc()
-        {
-            throw new NotImplementedException();
-        }
-    }
+   }
 }
 
 //BRIDGE FROM OBJ TO DATABASE 
