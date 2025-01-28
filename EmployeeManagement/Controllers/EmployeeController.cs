@@ -34,19 +34,29 @@ namespace EmployeeManagement.Controllers
             var emp = await _unitOfWork.Employees.Get(e=>e.Id==id,include:q=>q.Include(e=>e.Dept));
             if(emp==null)
                 return NotFound();
-            return Ok(emp);
+            var employeeDTO=_mapper.Map<EmployeeDTO>(emp);
+            return Ok(employeeDTO);
         }
 
-    //    // Get All Employees
-    //    [HttpGet("GetAllEmployees")]
-    //    public IActionResult GetAll()
-    //    {
-    //        var emp = _employeeRepository.GetAll();
-    //        return Ok(emp);
-    //    }
+      
+      [HttpGet("GetAllEmployees")]
+        public async Task<IActionResult> GetAllEmployees()
+        {
+              try
+    {
+        var employees = await _unitOfWork.Employees.GetAll(include: q => q.Include(e => e.Dept));
+        var employeeDTOs = _mapper.Map<List<EmployeeDTO>>(employees);
+        return Ok(employeeDTOs);
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Error fetching all employees");
+        return StatusCode(500, "Internal server error");
+    }
+       }
 
-    //    // Add a New Employee
-    //    [HttpPost("AddEmployee")]
+     //  Add a New Employee
+     //  [HttpPost("AddEmployee")]
     //    public IActionResult Add([FromBody]EmployeeDTO employee)
     //    {
     //        var result = _employeeRepository.Add(employee);

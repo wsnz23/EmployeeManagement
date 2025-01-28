@@ -16,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 builder.Services.AddScoped<IEmployeeRepository, SqlEmployeeRepository>();
+//builder.Services.AddScoped<IDepartmentRepository, SqlEmployeeRepository>();
 builder.Services.AddSingleton<ICustomerRepository, MockCustomerRepository>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 

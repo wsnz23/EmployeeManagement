@@ -25,22 +25,19 @@ namespace EmployeeManagement.Controllers
         }
 
       
-        [HttpGet]
+        [HttpGet("GetAllDeprtments")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetDepartments()
         {
             try
             {
-                _logger.LogInformation("Get departments start ");
+                _logger.LogInformation("Get departments start");
 
                 var departments = await _unitOfWork.Departments.GetAll();
+                var departmentDTOs = _mapper.Map<List<DepartmentDTO>>(departments);
+                return Ok(departmentDTOs);
 
-         
-             //var results = _mapper.Map<IList<Department>>(departments);
-
-          
-            return Ok(departments);
             }
             catch (Exception ex)
             {
@@ -58,15 +55,16 @@ namespace EmployeeManagement.Controllers
         {
             try
             {
-                _logger.LogInformation("Get departments start ");
+                var department = await _unitOfWork.Departments.Get(d => d.Id == id);
+                if (department == null)
+                {
+                    _logger.LogWarning($"Department with ID {id} not found");
+                    return NotFound($"Department with ID {id} not found");
+                }
 
-                var department = await _unitOfWork.Departments.Get(d=>d.Id==id);
+                var departmentDTO = _mapper.Map<DepartmentDTO>(department);
 
-
-                //var results = _mapper.Map<IList<Department>>(departments);
-
-
-                return Ok(department);
+                return Ok(departmentDTO);
             }
             catch (Exception ex)
             {
