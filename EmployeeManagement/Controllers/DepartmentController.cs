@@ -78,11 +78,11 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDepartment([FromBody]DepartmentDTO department)
+        public async Task<IActionResult> AddDepartment([FromBody]Department department)
         {
             try
             {
-                if(!ModelState IsValid){
+                if(!ModelState.IsValid){
                     return BadRequest(ModelState);
                 }
 
