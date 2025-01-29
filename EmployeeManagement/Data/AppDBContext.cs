@@ -18,6 +18,7 @@ namespace EmployeeManagement.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.SeedDepartment();
             modelBuilder.SeedEmployee();
+            modelBuilder.SeedRoles();   
         }
 
    }

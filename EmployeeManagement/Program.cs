@@ -1,6 +1,7 @@
 using CustomerManagement.EmployeeManagement.Models.Repositories.Implementations;
 using CustomerManagement.EmployeeManagement.Models.Repositories.Interfaces;
 using EmployeeManagement.Data;
+using EmployeeManagement.Extensions;
 using EmployeeManagement.Models.Domain;
 using EmployeeManagement.Models.IRepository;
 using EmployeeManagement.Models.Repositories.Implementations;
@@ -13,18 +14,17 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.ConfigureController();
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
-builder.Services.AddScoped<IEmployeeRepository, SqlEmployeeRepository>();
 //builder.Services.AddScoped<IDepartmentRepository, SqlEmployeeRepository>();
 builder.Services.AddSingleton<ICustomerRepository, MockCustomerRepository>();
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-
+builder.Services.ConfigureAppServices();
+builder.Services.ConfigureAppServices();
+builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.ConfigureAutoMapper();
 
-builder.Services.AddDbContextPool<AppDBContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeeDB")));
+builder.Services.ConfigureDBContext(builder.Configuration);
 
 builder.Services.AddIdentity<APIUser , IdentityRole>().AddEntityFrameworkStores<AppDBContext>();
 

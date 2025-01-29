@@ -3,6 +3,7 @@ using EmployeeManagement.Models.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace EmployeeManagement.Controllers
 {
@@ -13,19 +14,21 @@ namespace EmployeeManagement.Controllers
         private readonly UserManager<APIUser> _userManager;
         private readonly SignInManager<APIUser> _signInManager;
 
-        public AccountController( SignInManager<APIUser> signInManager,UserManager<APIUser> userManager)
-        {    
+        public AccountController(SignInManager<APIUser> signInManager, UserManager<APIUser> userManager)
+        {
             _signInManager = signInManager;
             _userManager = userManager;
-        
+
         }
 
         [HttpPost]
+        [Route("Register")]
         public async Task<IActionResult> Register(RegisterDTO registerDTO)
         {
-
-            if (ModelState.IsValid) {
-            BadRequest(registerDTO); 
+            try { 
+            if (ModelState.IsValid)
+            {
+                BadRequest(registerDTO);
             }
             var user = new APIUser
             {
@@ -36,18 +39,39 @@ namespace EmployeeManagement.Controllers
 
             };
 
-            var result= await _userManager.CreateAsync(user,registerDTO.Password);
+            var result = await _userManager.CreateAsync(user, registerDTO.Password);
 
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false);
-                return Accepted();
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return BadRequest(ModelState);
             }
-            foreach(var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
+
+            await _userManager.AddToRolesAsync(user, registerDTO.Roles);
+            return Accepted();
+        }
+        catch(Exception ex){
+            return Problem(ex.Message,statusCode:500);
             }
-             return BadRequest(ModelState);
+        }
+
+
+
+
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> Login(RegisterDTO registerDTO)
+        {
+       
+        throw new NotImplementedException(); 
+        }
+
+
+
+
+
         }
     }
-}

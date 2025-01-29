@@ -27,5 +27,6 @@ namespace EmployeeManagement.Models.DTOs
 
         [Compare("Password", ErrorMessage= "Password and confirmation password donot match.")]
         public string ConfirmPassword { get; set; }
+        public ICollection<string> Roles{ get; set; }
     }
 }

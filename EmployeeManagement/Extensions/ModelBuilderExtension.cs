@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Models.Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Extensions
@@ -66,5 +67,25 @@ namespace EmployeeManagement.Extensions
                    );
         }
 
+        public static void SeedRoles(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityRole>().HasData(
+                   new IdentityRole
+                   {
+                       Name = "user",
+                       NormalizedName = "USER",
+
+                   },
+                  new IdentityRole
+                  {
+                      Name = "administrator ",
+                      NormalizedName = "ADMINISTRATOR",
+
+                  }
+                   );
+        }
+
     }
+
+
 }
