@@ -3,7 +3,17 @@ using System.Text.RegularExpressions;
 
 namespace EmployeeManagement.Models.DTOs
 {
-    public class RegisterDTO
+    public class LoginUserDto
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+    }
+    public class RegisterDTO : LoginUserDto
     {
         [Required]
         [StringLength(10)]
@@ -11,15 +21,15 @@ namespace EmployeeManagement.Models.DTOs
         [Required]
         [StringLength(10)]
         public string LastName { get; set; }
-        [Required]
+        //[Required]
 
-        [EmailAddress]
-        public string Email { get; set; }
+        //[EmailAddress]
+        //public string Email { get; set; }
 
-        [Required]
+        //[Required]
 
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+        //[DataType(DataType.Password)]
+        //public string Password { get; set; }
 
         [DataType(DataType.Password)]
 

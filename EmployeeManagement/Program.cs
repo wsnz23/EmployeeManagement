@@ -8,6 +8,7 @@ using EmployeeManagement.Models.Repositories.Implementations;
 using EmployeeManagement.Models.Repositories.Implemintations;
 using EmployeeManagement.Models.Repositories.Interfaces;
 using EmployeeManagement.Models.Repository;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -21,12 +22,12 @@ builder.Services.AddSingleton<ICustomerRepository, MockCustomerRepository>();
 builder.Services.ConfigureAppServices();
 builder.Services.ConfigureAppServices();
 builder.Services.ConfigureJWT(builder.Configuration);
-builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwaggerDoc();
 builder.Services.ConfigureAutoMapper();
-
+builder.Services.AddAuthentication();
 builder.Services.ConfigureDBContext(builder.Configuration);
 
-builder.Services.AddIdentity<APIUser , IdentityRole>().AddEntityFrameworkStores<AppDBContext>();
+builder.Services.ConfigureIdentity();
 
 var app = builder.Build();
 
@@ -48,7 +49,11 @@ if (app.Environment.IsDevelopment())
 //app.UseFileServer(options);
 
 app.UseStaticFiles();
+app.UseRouting();
 app.UseAuthentication();
+app.UseAuthorization();
 //app.UseMvcWithDefaultRoute();
-app.MapControllers();
+app.UseEndpoints(endpoints => {
+    endpoints.MapControllers();
+});
 app.Run();
