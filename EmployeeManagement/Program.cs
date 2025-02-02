@@ -47,13 +47,14 @@ if (app.Environment.IsDevelopment())
 
 
 //app.UseFileServer(options);
+app.UseEndpoints(endpoints => {
+    endpoints.MapControllers();
+});
 
+app.ConfigureExceptionHandler();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 //app.UseMvcWithDefaultRoute();
-app.UseEndpoints(endpoints => {
-    endpoints.MapControllers();
-});
 app.Run();

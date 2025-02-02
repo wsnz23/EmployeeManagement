@@ -28,6 +28,7 @@ namespace EmployeeManagement.Controllers
 
       
         [HttpGet("GetAllDeprtments")]
+        [Authorize(Roles ="user")] //or we can put adminstrator
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetDepartments()

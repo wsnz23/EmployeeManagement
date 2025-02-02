@@ -2,6 +2,7 @@
 using EmployeeManagement.Models.Domain;
 using EmployeeManagement.Models.DTOs;
 using EmployeeManagement.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using System.Linq.Expressions;
 
 namespace EmployeeManagement.Controllers
 {
+   // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -26,7 +28,7 @@ namespace EmployeeManagement.Controllers
             _authManager = authManager;
         }
 
-
+       // [AllowAnonymous]
         [HttpPost]
         [Route("Register")]
         public async Task<IActionResult> Register(RegisterDTO registerDTO)
@@ -65,8 +67,7 @@ namespace EmployeeManagement.Controllers
         }
 
 
-
-
+       // [Authorize]
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserDto userDTO)
@@ -92,6 +93,8 @@ namespace EmployeeManagement.Controllers
                 return Problem($"Something Went Wrong in the {nameof(Login)}", statusCode: 500);
             }
         }
+
+      //  [Authorize]
         [HttpPost]
         [Route("refreshtoken")]
         public async Task<IActionResult> RefreshToken([FromBody] TokenRequest request)

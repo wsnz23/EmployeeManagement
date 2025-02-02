@@ -3,11 +3,13 @@ using EmployeeManagement.Models.Domain;
 using EmployeeManagement.Models.DTOs;
 using EmployeeManagement.Models.IRepository;
 using EmployeeManagement.Models.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Controllers
 {
+    [Authorize]
     [Route("api/[Controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase

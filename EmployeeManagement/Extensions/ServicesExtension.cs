@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement.Data;
+using EmployeeManagement.Models;
 using EmployeeManagement.Models.Domain;
 using EmployeeManagement.Models.IRepository;
 using EmployeeManagement.Models.Repositories.Implemintations;
@@ -6,6 +7,7 @@ using EmployeeManagement.Models.Repositories.Interfaces;
 using EmployeeManagement.Models.Repository;
 using EmployeeManagement.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -107,6 +109,26 @@ namespace EmployeeManagement.Extensions
                 new List<string>()
             }
         });
+            });
+        }
+        public static void ConfigureExceptionHandler(this IApplicationBuilder app)
+        {
+            app.UseExceptionHandler(error =>
+            {
+                error.Run(async context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    context.Response.ContentType = "application/json";
+                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    if (contextFeature != null)
+                    {
+                        await context.Response.WriteAsync(new Error
+                        {
+                            StatusCode = context.Response.StatusCode,
+                            Message = "Internal Server Error. Please Try Again Later."
+                        }.ToString());
+                    }
+                });
             });
         }
     }
